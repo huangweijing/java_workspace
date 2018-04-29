@@ -1,0 +1,120 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
+
+
+public class TwoEfficientTeams2 {
+
+	static class Group {
+		public Set<Integer> members = new HashSet<Integer>();
+		public int efficient = 0;
+		public String toString() {
+			StringBuffer sb = new StringBuffer();
+			sb.append("members:");
+			sb.append(members.toString());
+			sb.append(", efficient:");
+			sb.append(efficient);
+			return sb.toString();
+		}
+	}
+	
+    // Complete the maximumEfficiency function below.
+    static long maximumEfficiency(int n, int m) {
+    	
+    	Set<Integer> nSet = new HashSet<Integer>();
+    	for(int i=1; i<=n; i++) {
+    		nSet.add(i);
+    	}
+    	List<Group> groupList = new ArrayList<Group>();
+    	
+    	for(int i=0; i<m; i++) {
+    		Group newGroup = new Group();
+    		int groupMemberCount = scanner.nextInt();
+    		newGroup.efficient = scanner.nextInt();
+    		groupList.add(newGroup);
+    		for(int j=0; j<groupMemberCount; j++) {
+    			int memberIndex = scanner.nextInt();
+    			newGroup.members.add(memberIndex);
+    		}
+    	}
+    	
+    	return calcMaxEfficient(new HashSet<Integer>(), new HashSet<Integer>(), groupList);
+    }
+    
+    static long calcMaxEfficient(Set<Integer> left, Set<Integer> right, List<Group> groupList) {
+    	
+//    	System.out.println(groupList);
+    	
+    	if(groupList.size() == 0) {
+    		return 0;
+    	}
+    	
+    	List<Group> newList = new LinkedList<Group>(groupList);
+    	long maxEfficient = 0;
+    	long efficient = 0;
+    	for(Group group : groupList) {
+			newList.remove(group);
+    		if(!containsAny(right, group.members)) {
+    			Set<Integer> newLeft = new HashSet<Integer>(left);
+    			newLeft.addAll(group.members);
+    			efficient = group.efficient + calcMaxEfficient(newLeft, right, newList);
+    			if(efficient > maxEfficient)
+    				maxEfficient = efficient;
+    		}
+    		
+    		if(!containsAny(left, group.members)) {
+    			Set<Integer> newRight = new HashSet<Integer>(right);
+    			newRight.addAll(group.members);
+    			efficient = group.efficient + calcMaxEfficient(left, newRight, newList);
+    			if(efficient > maxEfficient)
+    				maxEfficient = efficient;
+    		}
+    		
+    		efficient = group.efficient + calcMaxEfficient(left, right, newList);
+			if(efficient > maxEfficient)
+				maxEfficient = efficient;
+			
+			newList.add(group);
+    	}
+    	
+    	return maxEfficient;
+    }
+    
+    static boolean containsAny(Set<Integer>set1, Set<Integer>set2) {
+    	for(Integer i : set2) {
+    		if(set1.contains(i))
+    			return true;
+    	}
+    	return false;
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        String[] nm = scanner.nextLine().split(" ");
+
+        int n = Integer.parseInt(nm[0]);
+
+        int m = Integer.parseInt(nm[1]);
+        
+        long result = maximumEfficiency(n, m);
+//        System.out.println(result);
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
+
+        bufferedWriter.close();
+
+        scanner.close();
+    }
+}

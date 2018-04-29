@@ -1,0 +1,272 @@
+package com.weijinglab.lib.tree;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+public class BinarySearchTree<E extends Comparable<E>> {
+
+	public static void main(String[] args) {
+		BinarySearchTree<Integer> binaryTree = new BinarySearchTree<Integer>();
+		Integer[] intArray = new Integer[]{ 4, 2, 1, 8, 0, 41, 12, 11, 31};
+		for(Integer someInt : intArray) {
+			binaryTree.insert(someInt);
+		}
+//		binaryTree.print(-1);
+//		System.out.println();
+//		binaryTree.print(0);
+//		System.out.println();
+//		binaryTree.print(1);
+//		System.out.println();
+		
+		printGraphic(binaryTree.root);
+		topView(binaryTree.root);
+		
+	}
+	
+	public TreeNode<E> root = null;
+	
+	public BinarySearchTree(TreeNode<E> root) {
+		this.root = root;
+	}
+	
+	public BinarySearchTree() {
+		this.root = null;
+	}
+	
+	public void insert(E data) {
+		if(root == null) {
+			root = new TreeNode<E>(data);
+		} else {
+			this.insert(root, data);
+		}
+	}
+	
+	public void insert(TreeNode<E> node, E data) {
+		if(data.compareTo(node.data) < 0) {
+			if(node.left != null) {
+				insert(node.left, data);
+			} else {
+				node.left = new TreeNode<E>(data);
+			}
+		}else {
+			if(node.right != null) {
+				insert(node.right, data);
+			} else {
+				node.right = new TreeNode<E>(data);
+			}
+		}
+	}
+	
+	/**
+	 * -1: preorder
+	 * 0: inorder
+	 * 1: postorder
+	 */
+	public void print(int type) {
+		switch(type) {
+		case -1:
+			this.preOrder(this.root);
+			break;
+		case 0:
+			this.inOrder(this.root);
+			break;
+		case 1:
+			this.postOrder(this.root);
+			break;
+		}
+		
+	}
+	public void preOrder(TreeNode<E> node) {
+		System.out.print(node.data + " ");
+		if(node.left != null) {
+			preOrder(node.left);
+		}
+		if(node.right != null) {
+			preOrder(node.right);
+		}
+	}
+	
+	public void postOrder(TreeNode<E> node) {
+		System.out.print(node.data + " ");
+		if(node.left != null) {
+			postOrder(node.left);
+		}
+		if(node.right != null) {
+			postOrder(node.right);
+		}
+	}
+	
+
+	public void inOrder(TreeNode<E> node) {
+		if(node.left != null) {
+			inOrder(node.left);
+		}
+		System.out.print(node.data + " ");
+		if(node.right != null) {
+			inOrder(node.right);
+		}
+	}
+	
+	static class TreeNode<E> {
+		public E data = null;
+		public TreeNode<E>left = null;
+		public TreeNode<E>right = null;
+		public TreeNode(E data) {
+			this.data = data;
+		}
+	}
+	
+	/**
+	 * 打印一棵树
+	 * 树的根节点一定在两颗子树的正中央
+	 * 两根叉叉树枝一定在子树根节点的顶上
+	 * @param treeRoot
+	 * @return 打印结果
+	 */
+	public static List<String> printGraphic(TreeNode<Integer> treeRoot) {
+		
+		if(treeRoot.left == null && treeRoot.right == null) {
+			List<String> oneDataList = new LinkedList<String>();
+			oneDataList.add(treeRoot.data.toString());
+			return oneDataList;
+		}
+		
+		LinkedList<String> currentPrintout = new LinkedList<String>();
+		LinkedList<String> leftPrintout = new LinkedList<String>();
+		LinkedList<String> rightPrintout = new LinkedList<String>();
+		if(treeRoot.left != null) {
+			leftPrintout.addAll(printGraphic(treeRoot.left));
+		}
+		if(treeRoot.right != null) {
+			rightPrintout.addAll(printGraphic(treeRoot.right));
+		}
+
+		//左の子供のツリーの幅
+		Integer leftWidth = maxSizeOfLine(leftPrintout);
+		//左の子供のツリー高さ
+		Integer leftHeight = leftPrintout.size();
+		//右の子供のツリーの幅
+		Integer rightWidth = maxSizeOfLine(rightPrintout);
+		//左の子供のツリー幅
+		Integer rightHeight = rightPrintout.size();
+		if(leftHeight > 0) {
+			//一行目の数字の最後のけ桁の真上に/を配置する。
+			String leftFirst = leftPrintout.getFirst();
+			Integer leftSpaceCount = getLeftSapceCount(leftFirst);
+			leftPrintout.addFirst(addSpacesToRight(repeat(" ", leftSpaceCount + leftFirst.trim().length() -1) +  "/" , leftWidth));
+		}
+		if(rightHeight > 0) {
+			//一行目の数字の最初のけ桁の真上に\を配置する。
+			String rightFirst = rightPrintout.getFirst();
+			Integer rightSpaceCount = getLeftSapceCount(rightFirst);
+			rightPrintout.addFirst(addSpacesToRight(repeat(" ", rightSpaceCount) +  "\\", rightWidth));
+		}
+		
+		Integer rootDataLen = treeRoot.data.toString().length();
+		Integer higerHeight = leftHeight > rightHeight ? leftHeight : rightHeight;
+		for(Integer i=0; i<=higerHeight; i++){
+			String currentLine = "";
+			String leftLine = "";
+			String rightLine = "";
+			if(i < leftPrintout.size()) {
+				leftLine = leftPrintout.get(i);
+			} else {
+				leftLine = repeat(" ", leftWidth);
+			}
+			if(i < rightPrintout.size()) {
+				rightLine = rightPrintout.get(i);
+			} else {
+				rightLine = repeat(" ", rightWidth);
+			}
+			currentLine = leftLine + repeat(" ", rootDataLen) + rightLine; 
+			currentPrintout.add(currentLine);
+		}
+		currentPrintout.addFirst(repeat(" ", leftWidth) + treeRoot.data.toString() + repeat(" ", rightWidth));
+		
+		return currentPrintout;
+	}
+	
+
+	/**
+	 * スペースで右詰
+	 * @param str
+	 * @param width
+	 * @return
+	 */
+	public static String addSpacesToRight(String str, Integer width) {
+		while(str.length() < width) {
+			str = str + " ";
+		}
+		return str;
+	}
+	
+	/**
+	 * 文字列の左側のスペースを取得する
+	 * @param str
+	 * @return
+	 */
+	public static Integer getLeftSapceCount(String str){
+		Integer count = 0;
+		for(; str.charAt(count) == ' '; count++);
+		return count;
+	}
+	
+	/**
+	 * 重複出力
+	 * @param str
+	 * @param times
+	 * @return
+	 */
+	private static String repeat(String str, Integer times) {
+		String result = "";
+		for(int i=1; i<=times; i++) {
+			result = result + str;
+		}
+		return result;
+	}
+	
+	/**
+	 * リストの中に最大の行のサイズを取り出す
+	 * @param lines
+	 * @return
+	 */
+	private static Integer maxSizeOfLine(List<String> lines) {
+		Integer maxLength = 0;
+		for(String line : lines) {
+			if(line.length() > maxLength) {
+				maxLength = line.length();
+			}
+		}
+		return maxLength;
+	}
+
+    public static void getVerticalOrder(TreeNode<Integer> root, Integer pos, Map<Integer, List<Integer>> verticalMap) {
+        if(root == null) {
+            return;
+        }
+        List<Integer> verticalList = verticalMap.get(pos);
+        if(verticalList == null) {
+            verticalList = new ArrayList<Integer>();
+            verticalMap.put(pos, verticalList);
+        }
+        verticalList.add(root.data);
+        
+        getVerticalOrder(root.left, pos - 1, verticalMap);
+        getVerticalOrder(root.right, pos + 1, verticalMap);
+    }
+
+    public static void topView(TreeNode<Integer> root) {
+ 	      
+        Map<Integer, List<Integer>> verticalMap = new HashMap<Integer, List<Integer>>();
+        getVerticalOrder(root, 0, verticalMap); 
+        List<Integer> newList = new ArrayList<Integer>(verticalMap.keySet());
+        Collections.sort(newList);
+        for(Integer i : newList) {
+            System.out.print(verticalMap.get(i).get(0) + " ");
+        }
+     }
+}

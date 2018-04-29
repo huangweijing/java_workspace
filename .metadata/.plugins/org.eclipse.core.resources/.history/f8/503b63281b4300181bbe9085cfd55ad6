@@ -1,0 +1,158 @@
+import java.io.*;
+import java.math.*;
+import java.text.*;
+import java.util.*;
+import java.util.regex.*;
+
+public class Solution {
+	
+	static long anotherSolution(int[] freq) {
+		long result = 0;
+		int count_sum = 0;
+		for(int f : freq) {
+			count_sum += f;
+		}
+		
+		List<Integer> listMin = new ArrayList<Integer>();
+		List<Integer> listMax = new ArrayList<Integer>();
+		
+//		int listMin = int[14];
+		
+		int middle = (count_sum + 1)/ 2;
+		int minSum = 0;
+		int middle_left = 0;
+		int middle_right = 0;
+		for(int f : freq) {
+			if(f == 0)
+				continue;
+			if(minSum + f <= middle) {
+				listMin.add(f);
+			} else if(minSum >= middle) {
+				listMax.add(f);
+			} else {
+				middle_left = middle - minSum;
+				middle_right = minSum + f - middle;
+				listMin.add(middle_left);
+				listMax.add(middle_right);
+			}
+			minSum = minSum + f;
+		}
+		
+		System.out.println(listMin);
+		System.out.println(listMax);
+		
+		for(int i=0; i<listMin.size(); i++) {
+			for(int j=0; j<listMax.size(); j++) {
+				int minCnt = listMin.get(i);
+				int maxCnt = listMax.get(j);
+				
+				if(i == listMin.size() - 1
+						&& j == 0) {
+					if(middle_left != 0 &&
+							listMax.get(j) != 0)
+						continue;
+				}
+				
+				
+				if(maxCnt == 0)
+					continue;
+				if(minCnt >= maxCnt) {
+					minCnt = minCnt - maxCnt;
+					listMax.set(j, 0);
+					listMin.set(i, minCnt);
+					result += maxCnt;
+				} else {
+					maxCnt = maxCnt - minCnt;
+					listMax.set(j, maxCnt);
+					listMin.set(i, 0);
+					result += minCnt;
+					break;
+				}
+			}
+		}
+		
+		if(listMax.get(listMax.size() - 1) != 0) {
+			result--;
+		}
+		
+		
+		System.out.println(listMin);
+		System.out.println(listMax);
+		
+		return result;
+	}
+
+    // Complete the maximumSuperiorCharacters function below.
+    static long maximumSuperiorCharacters(int[] freq) {
+    	
+    	Stack<Integer> sta = new Stack<Integer>();
+
+    	for(int n : freq) {
+    		sta.push(n);
+    	}
+    	long result1 = calcMaxium(sta);
+    	
+
+    	Stack<Integer> sta2 = new Stack<Integer>();
+    	for(int i=freq.length -1; i>=0; i--) {
+    		sta2.push(freq[i]);
+    	}
+    	
+    	long result2 = calcMaxium(sta2);
+    	
+    	return result1 > result2 ? result1 : result2;
+    }
+    
+    static long calcMaxium(Stack<Integer> sta) {
+    	long result = 0;
+    	while(sta.size() > 0) {
+    		Integer superiorNum = sta.pop();
+    		while(superiorNum > 0 && sta.size() > 0) {
+    			Integer smallerNum = sta.pop();
+    			if(superiorNum >= smallerNum) {
+    				superiorNum = superiorNum - smallerNum;
+    				result += smallerNum;
+    			} else {
+    				smallerNum = smallerNum - superiorNum;
+    				result += superiorNum;
+    				sta.push(smallerNum);
+    				superiorNum = 0;
+    			}
+    		}
+        	if(sta.size() == 0 && superiorNum == 0)
+        		result--;
+    	}
+    	return result;
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) throws IOException {
+//        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int t = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        for (int tItr = 0; tItr < t; tItr++) {
+            int[] freq = new int[5];
+
+            String[] freqItems = scanner.nextLine().split(" ");
+            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+            for (int freqItr = 0; freqItr < freq.length; freqItr++) {
+                int freqItem = Integer.parseInt(freqItems[freqItr]);
+                freq[freqItr] = freqItem;
+            }
+
+            long result = anotherSolution(freq);
+
+            System.out.println(result);
+//            bufferedWriter.write(String.valueOf(result));
+//            bufferedWriter.newLine();
+        }
+
+//        bufferedWriter.close();
+
+        scanner.close();
+    }
+}

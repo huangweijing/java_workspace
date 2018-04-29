@@ -1,0 +1,77 @@
+import java.io.*;
+import java.math.*;
+import java.text.*;
+import java.util.*;
+import java.util.regex.*;
+
+public class Solution8 {
+	
+    /*
+     * Complete the dynamicLineIntersection function below.
+     */
+    static void dynamicLineIntersection(int n) {
+        /*
+         * Write your code here.
+         */
+        int[] qDatabase = new int[100001];
+        
+    	for(int i=0; i<n; i++) {
+            String line = scanner.nextLine();
+//            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])*");
+            String[] strArr = new String[3];
+            strArr[0] = line.substring(0, 1);
+            int secSpace = line.indexOf(" ", 2);
+            if(secSpace > 0) 
+            	strArr[1] = line.substring(2, secSpace);
+            else
+            	strArr[1] = line.substring(2);
+            if(line.length() > secSpace + 1) {
+            	strArr[2] = line.substring(secSpace + 1);
+            }
+            
+    		if(strArr[0].equals("+")){
+    			int k = Integer.parseInt(strArr[1]);
+    			int b = Integer.parseInt(strArr[2]);
+    			int maxX = 100000 - b / k;
+    			int minX = - b / k;
+    				for(int x=minX; x<=maxX; x++) {
+    				long q = (long)k * x + b;
+    				if(q <= 100000 && q >= 0) {
+        				qDatabase[(int)q]++;
+    				}
+    				if(q > 100000)
+    					break;
+    			}
+    			
+    		} else if(strArr[0].equals("-")) {
+    			int k = Integer.parseInt(strArr[1]);
+    			int b = Integer.parseInt(strArr[2]);
+    			int maxX = 100000 - b / k;
+    			int minX = - b / k;
+    			for(int x=minX; x<=maxX; x++) {
+    				long q = (long)k * x + b;
+    				if(q >= 0 && q <= 100000)
+    					qDatabase[(int)q]--;
+    				if(q > 100000)
+    					break;
+    			}
+    			
+    		} else if(strArr[0].equals("?")) {
+    			Integer q = Integer.parseInt(strArr[1]);
+    			System.out.println(qDatabase[q]);
+    		}
+    	}
+
+    }
+
+    public static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        int n = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])*");
+
+        dynamicLineIntersection(n);
+
+        scanner.close();
+    }
+}

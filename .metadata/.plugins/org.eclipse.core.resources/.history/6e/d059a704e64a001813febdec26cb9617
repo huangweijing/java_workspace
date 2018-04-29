@@ -1,0 +1,28 @@
+import java.util.Scanner;
+import java.util.Stack;
+
+
+public class MaximumElement {
+
+	public static Scanner scanner = new Scanner(System.in);
+	
+	public static void main(String[] args) {
+		Stack<Integer> stack = new Stack<Integer>();
+		int n = scanner.nextInt();
+		for(int i=0; i<n; i++) {
+			int command = scanner.nextInt();
+			switch(command) {
+			case 1:
+				int x = scanner.nextInt();
+				break;
+			case 2:
+				
+				break;
+			case 3:
+				break;
+			}
+		}
+
+	}
+
+}

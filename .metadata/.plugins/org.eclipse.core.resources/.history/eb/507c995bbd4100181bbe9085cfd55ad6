@@ -1,0 +1,22 @@
+package com.weijinglab.reversequeue;
+
+import java.util.Queue;
+
+public class ReverseQueue {
+
+	public static void main(String[] args) {
+
+	}
+	
+	public static Queue<Integer> reverse(Queue<Integer> q) {
+		if(q.size() == 1)
+			return q;
+		else {
+			Integer first = q.poll();
+			Queue<Integer> reversedQ = reverse(q);
+			reversedQ.add(first);
+			return reversedQ;
+		}
+	}
+
+}

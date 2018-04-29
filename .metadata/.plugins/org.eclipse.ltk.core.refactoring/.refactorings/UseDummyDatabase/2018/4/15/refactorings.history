@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;Factoization.java&apos; to &apos;UseDummyDatabase/src/homework&apos;&#x0D;&#x0A;- Original project: &apos;UseDummyDatabase&apos;&#x0D;&#x0A;- Destination element: &apos;UseDummyDatabase/src/homework&apos;&#x0D;&#x0A;- Original element: &apos;homework.Factoization.java&apos;" description="Copy compilation unit" destination="/src&lt;homework" element1="/src&lt;homework{Factoization.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1523223891415" units="1" version="1.0"/>
+</session>

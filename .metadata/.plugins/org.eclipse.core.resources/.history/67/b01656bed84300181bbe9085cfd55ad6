@@ -1,0 +1,74 @@
+import java.io.*;
+import java.math.*;
+import java.text.*;
+import java.util.*;
+import java.util.regex.*;
+
+public class Solution {
+
+	private static class KB {
+		public Double k;
+		public Double b;
+		public int count;
+		public String toString() {
+			return k.toString() + "-" + b.toString();
+		}
+	}
+    /*
+     * Complete the dynamicLineIntersection function below.
+     */
+    static void dynamicLineIntersection(int n) {
+        /*
+         * Write your code here.
+         */
+    	Map<String, KB> lineMap = new HashMap<String, KB>();
+    	
+    	for(int i=0; i<n; i++) {
+            String line = scanner.nextLine();
+            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])*");
+            
+            String[] strArr = line.split(" ");
+            
+    		if(strArr[0] == "+"){
+    			KB plusKb = new KB();
+    			plusKb.k = Double.parseDouble(strArr[1]);
+    			plusKb.b = Double.parseDouble(strArr[2]);
+    			KB kbInMap = lineMap.get(plusKb.toString());
+    			if(kbInMap == null) {
+    				plusKb.count = 1;
+    				lineMap.put(plusKb.toString(), plusKb);
+    			} else {
+    				kbInMap.count++;
+    			}
+    			
+    		} else if(strArr[0] == "-") {
+    			KB minusKb = new KB();
+    			minusKb.k = Double.parseDouble(strArr[1]);
+    			minusKb.b = Double.parseDouble(strArr[2]);
+    			KB kbInMap = lineMap.get(minusKb.toString());
+    			if(kbInMap == null) {
+    			} else if(kbInMap.count == 1) {
+    				kbInMap.count++;
+    			} else {
+    				kbInMap.count--;
+    			}
+    			
+    			
+    		} else if(strArr[0] == "?") {
+    			
+    		}
+    	}
+
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        int n = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])*");
+
+        dynamicLineIntersection(n);
+
+        scanner.close();
+    }
+}

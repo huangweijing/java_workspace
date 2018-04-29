@@ -1,0 +1,53 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
+
+
+public class TwoEfficientTeams {
+
+	static class Group {
+		public Set<Integer> members = new HashSet<Integer>();
+		public int efficient = 0;
+	}
+	
+    // Complete the maximumEfficiency function below.
+    static long maximumEfficiency(int n, int m) {
+    	
+    	for(int i=0; i<m; i++) {
+    		Group newGroup = new Group();
+    		int groupMemberCount = scanner.nextInt();
+    		newGroup.efficient = scanner.nextInt();
+    		for(int j=0; j<groupMemberCount; j++) {
+    			int memberIndex = scanner.nextInt();
+    			newGroup.members.add(memberIndex);
+    		}
+    	}
+
+    	return 0;
+
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        String[] nm = scanner.nextLine().split(" ");
+
+        int n = Integer.parseInt(nm[0]);
+
+        int m = Integer.parseInt(nm[1]);
+
+        long result = maximumEfficiency(n, m);
+
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
+
+        bufferedWriter.close();
+
+        scanner.close();
+    }
+}

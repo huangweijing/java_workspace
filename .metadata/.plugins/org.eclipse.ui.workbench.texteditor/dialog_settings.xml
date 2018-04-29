@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="369" key="DIALOG_WIDTH"/>
+		<item value="214" key="DIALOG_Y_ORIGIN"/>
+		<item value="501" key="DIALOG_HEIGHT"/>
+		<item value="1018" key="DIALOG_X_ORIGIN"/>
+		<item value="1|Microsoft YaHei UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Microsoft YaHei UI" key="DIALOG_FONT_NAME"/>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="true" key="wrap"/>
+		<item value="false" key="isRegEx"/>
+		<item value="false" key="casesensitive"/>
+		<item value="false" key="incremental"/>
+		<item value="false" key="wholeword"/>
+		<item value="indexOfMax" key="selection"/>
+		<list key="findhistory">
+			<item value="indexOfMax"/>
+			<item value="indexArray"/>
+			<item value="&#x09;"/>
+			<item value="HashMap"/>
+			<item value=""/>
+		</list>
+		<list key="replacehistory">
+			<item value=" "/>
+			<item value="TreeMap"/>
+		</list>
+	</section>
+</section>

@@ -1,0 +1,174 @@
+import java.io.*;
+import java.math.*;
+import java.text.*;
+import java.util.*;
+import java.util.regex.*;
+
+public class ArrayManipulation {
+
+    private static class Range {
+        public int start;
+        public int end;
+        public int value;
+        public Range next;
+        public Range(int start, int end, int value) {
+            this.start = start;
+            this.end = end;
+            this.value = value;
+        }
+    }
+    /*
+     * Complete the arrayManipulation function below.
+     */
+    static int arrayManipulation(int n, int[][] queries) {
+        /*
+         * Write your code here.
+         */
+        List<Range> rangeList = new ArrayList<Range>();
+        Range head = new Range(1, n, 0);
+        
+        for(int[] query : queries) {
+            int a = query[0];
+            int b = query[1];
+            int k = query[2];
+
+            Range newRange = new Range(a, b, k);
+            
+            Range current = head;
+            while(current.next != null) {
+            	
+            	if(current.start > newRange.end
+            			|| current.end < newRange.start) {
+            	}
+            	else if(current.start == newRange.start
+            			&& current.end <= newRange.end) {
+            		current.value += newRange.value;
+            		newRange.start = current.end + 1;
+            	}
+            	else {
+            		int old_current_end = current.end;
+            		int biggerStart = Math.max(current.start, newRange.start);
+            		int smallerStart = Math.min(current.start, newRange.start);
+            		int biggerEnd = Math.max(current.end, newRange.end);
+            		int smallerEnd = Math.min(current.end, newRange.end);
+            		Range middle = null, right = null;
+            		if(biggerStart == smallerStart) {
+            			current.end = smallerEnd;
+            			current.value += newRange.value;
+            		} else {
+            			middle = new Range(biggerStart, smallerEnd, 
+                				current.value + newRange.value);
+                		middle.next = current.next;
+                		current.end = middle.start - 1;
+                		current.next = middle;	
+            		}
+            		
+            		if(newRange.end < old_current_end) {
+            			 right = new Range(smallerEnd, old_current_end, current.value);
+            			 right.next = middle.next;
+            			 middle.next = right;
+            		}
+            	}
+            	
+            	
+                if(current.start <= newRange.start 
+                		&& newRange.start <= current.end) {
+                	
+                	if(newRange.start > current.start ) {
+                    	Range newRangeLeft = new Range(current.start, newRange.start, 
+                    			current.value);
+                    }
+                    
+                    
+                    
+                	if(newRange.end < current.end) {
+                		Range newRangeRight = new Range(newRange.end, current.end,
+                				current.value);
+                	}
+                    //current.next = newRangeLeft;
+                }
+                current = current.next;
+            }
+//             for(Range range : rangeList) {
+//                 if(a <= range.start && b >= range.start) {
+                    
+//                 } else if(b < range.start || b > range.end) {
+                    
+//                 } else if( a > range.start && b < range.end) {
+//                     Range newRangeLeft = new Range();
+//                     newRangeLeft.start = range.start;
+//                     newRangeLeft.end = a - 1;
+//                     newRangeLeft.value = range.value;
+                    
+//                     Range newRangeRight = new Range();
+//                     newRangeRight.start = b + 1;
+//                     newRangeRight.end = range.end;
+//                     newRangeRight.value = range.value;
+                    
+//                     range.start = a;
+//                     range.end = b;
+//                     range.value += k;
+//                 } else if( a < range.start && b > range.end) {
+//                     Range newRangeLeft = new Range();
+//                     newRangeLeft.start = a;
+//                     newRangeLeft.end = range.start - 1;
+//                     newRangeLeft.value = range.value;
+                    
+//                     Range newRangeRight = new Range();
+//                     newRangeRight.start = range.end + 1;
+//                     newRangeRight.end = b;
+//                     newRangeRight.value = range.value;
+                    
+//                     range.value += k;
+//                 } else if( a < range.start && b > range.start) {
+//                     Range newRangeLeft = new Range();
+//                     newRangeLeft.start = a;
+//                     newRangeLeft.end = range.start - 1;
+//                     newRangeLeft.value = range.value;
+//                 }
+//             }
+            
+        }
+        
+        
+        int max = 0;
+        int[] arr = new int[n];
+        for(int[] query:queries) {
+            for(int i=query[0]-1; i<=query[1]-1; i++) 
+                arr[i] += query[2];
+        }
+        for(int v : arr) max = max > v ? max : v;
+
+        return max;
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        String[] nm = scanner.nextLine().split(" ");
+
+        int n = Integer.parseInt(nm[0].trim());
+
+        int m = Integer.parseInt(nm[1].trim());
+
+        int[][] queries = new int[m][3];
+
+        for (int queriesRowItr = 0; queriesRowItr < m; queriesRowItr++) {
+            String[] queriesRowItems = scanner.nextLine().split(" ");
+
+            for (int queriesColumnItr = 0; queriesColumnItr < 3; queriesColumnItr++) {
+                int queriesItem = Integer.parseInt(queriesRowItems[queriesColumnItr].trim());
+                queries[queriesRowItr][queriesColumnItr] = queriesItem;
+            }
+        }
+
+        int result = arrayManipulation(n, queries);
+
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
+
+        bufferedWriter.close();
+    }
+}

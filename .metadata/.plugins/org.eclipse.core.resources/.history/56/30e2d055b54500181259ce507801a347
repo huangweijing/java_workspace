@@ -1,0 +1,62 @@
+import java.io.*;
+import java.math.*;
+import java.text.*;
+import java.util.*;
+import java.util.regex.*;
+
+public class Solution8 {
+	
+    /*
+     * Complete the dynamicLineIntersection function below.
+     */
+    static void dynamicLineIntersection(int n) {
+        /*
+         * Write your code here.
+         */
+        int[] qDatabase = new int[100001];
+        int maximum = 80000;
+
+        String[] strArr = new String[3];
+    	for(int i=0; i<n; i++) {
+//            String line = scanner.nextLine();
+            String oprand = scanner.next();
+            
+    		if(oprand.equals("+")){
+    			int k = scanner.nextInt();
+    			int b = scanner.nextInt();
+    			for(int q=b; q>=0; q=q-k) {
+    				qDatabase[q]++;
+    			}
+    			for(int q=b+k; q<=maximum; q=q+k) {
+    				qDatabase[q]++;
+    			}
+    			
+    		} else if(oprand.equals("-")) {
+    			int k = scanner.nextInt();
+    			int b = scanner.nextInt();
+    			for(int q=b; q>=0; q=q-k) {
+    				qDatabase[q]--;
+    			}
+    			for(int q=b+k; q<=maximum; q=q+k) {
+    				qDatabase[q]--;
+    			}
+    			
+    		} else if(oprand.equals("?")) {
+    			Integer q = scanner.nextInt();
+    			System.out.println(qDatabase[q]);
+    		}
+    	}
+
+    }
+
+    public static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        int n = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])*");
+
+        dynamicLineIntersection(n);
+
+        scanner.close();
+    }
+}

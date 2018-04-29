@@ -1,0 +1,126 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Set;
+
+
+public class TwoEfficientTeams {
+
+	static class Group {
+		public Set<Integer> members = new HashSet<Integer>();
+		public int efficient = 0;
+	}
+	
+    // Complete the maximumEfficiency function below.
+    static long maximumEfficiency(int n, int m) {
+    	
+    	Set<Integer> nSet = new HashSet<Integer>();
+    	for(int i=1; i<=n; i++) {
+    		nSet.add(i);
+    	}
+    	Set<Set<Set<Integer>>> divide = divide(nSet);
+    	List<Group> groupList = new ArrayList<Group>();
+    	
+    	for(int i=0; i<m; i++) {
+    		Group newGroup = new Group();
+    		int groupMemberCount = scanner.nextInt();
+    		newGroup.efficient = scanner.nextInt();
+    		groupList.add(newGroup);
+    		for(int j=0; j<groupMemberCount; j++) {
+    			int memberIndex = scanner.nextInt();
+    			newGroup.members.add(memberIndex);
+    		}
+    	}
+    	
+    	long maxPoint = 0;
+    	for(Set<Set<Integer>> teampair : divide) {
+    		Iterator<Set<Integer>> iterator = teampair.iterator();
+    		Set<Integer> team1 = iterator.next();
+    		Set<Integer> team2 = iterator.next();
+    		if(team1.isEmpty() || team2.isEmpty()) {
+    			continue;
+    		}
+    		long point = 0; 
+        	for(Group g : groupList) {
+        		if(team1.containsAll(g.members)) {
+        			
+        		}
+        	}
+    	}
+
+    	return 0;
+    }
+    
+    static Set<Set<Set<Integer>>> divide(Set<Integer> nSet) {
+    	Set<Set<Set<Integer>>> result = new HashSet<Set<Set<Integer>>>();
+    	if(nSet.size() == 1) {
+    		Set<Set<Integer>> dividedSetPair = new HashSet<Set<Integer>>();
+    		dividedSetPair.add(new HashSet<Integer>());
+    		dividedSetPair.add(new HashSet<Integer>(nSet));
+    		result.add(dividedSetPair);
+    		return result;
+    	} else {
+    		for(Integer n : nSet) {
+        		Set<Integer> total = new HashSet<Integer>(nSet);
+        		total.remove(n);
+        		
+        		Set<Set<Set<Integer>>> dividedSetList = divide(total);
+        		for(Set<Set<Integer>> setPair : dividedSetList) {
+        			boolean first = false;
+        			Set<Set<Integer>> pairList = new HashSet<Set<Integer>>();
+        			for(Set<Integer> onepair : setPair) {
+                		Set<Integer> pair = new HashSet<Integer>(onepair);
+        				if(first == false) {
+        					first = true;
+        					pair.add(n);
+        				}
+        				pairList.add(pair);
+        			}
+        			result.add(pairList);
+        			
+        			first = false;
+        			pairList = new HashSet<Set<Integer>>();
+        			for(Set<Integer> onepair : setPair) {
+                		Set<Integer> pair = new HashSet<Integer>(onepair);
+        				if(first == false) {
+        					first = true;
+        				} else {
+        					pair.add(n);
+        				}
+        				pairList.add(pair);
+        			}
+        			result.add(pairList);
+        		}
+
+    		}
+    		return result;
+    	}
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) throws IOException {
+//        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        String[] nm = scanner.nextLine().split(" ");
+
+//        int n = Integer.parseInt(nm[0]);
+//
+//        int m = Integer.parseInt(nm[1]);
+//
+//        long result = maximumEfficiency(n, m);
+        maximumEfficiency(1, 3);
+//        bufferedWriter.write(String.valueOf(result));
+//        bufferedWriter.newLine();
+//
+//        bufferedWriter.close();
+
+        scanner.close();
+    }
+}

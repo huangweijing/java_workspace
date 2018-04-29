@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;Point.java&apos; to &apos;SelectionGame/src/com.weijinglab.selectiongame.model&apos;&#x0D;&#x0A;- Original project: &apos;BlockGame&apos;&#x0D;&#x0A;- Destination element: &apos;SelectionGame/src/com.weijinglab.selectiongame.model&apos;&#x0D;&#x0A;- Original element: &apos;com.weijinglab.blockgame.Point.java&apos;" description="Copy compilation unit" destination="=SelectionGame/src&lt;com.weijinglab.selectiongame.model" element1="/src&lt;com.weijinglab.blockgame{Point.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1431742801976" units="1" version="1.0"/>
+</session>

@@ -1,0 +1,89 @@
+package homework;
+
+public class TrappingRainWater {
+
+	public static void main(String[] args) {
+				
+		Integer[] intArray1 = new Integer[]{0,1,0,2,1,0,1,3,2,1,2,1};
+		Integer[] intArray2 = new Integer[]{9,2,-8,1,2,5,2};
+		Integer[] intArray3 = new Integer[]{0,8,0,1,4};
+		Integer[] intArray4 = new Integer[]{4,-2,8,0,1};
+		Integer[] intArray5 = new Integer[]{1,0,7,0,1};
+		Integer[] intArray6 = new Integer[]{0,1,3,2,1};
+		Integer[] intArray7 = new Integer[]{0,1,-1,-2,1};
+		Integer[] intArray8 = new Integer[]{0,1,-1,-2,1};
+		System.out.println(solution(intArray1));//6
+		System.out.println(solution(intArray2));//1
+		System.out.println(solution(intArray3));//7
+		System.out.println(solution(intArray4));//7
+		System.out.println(solution(intArray5));//2
+		System.out.println(solution(intArray6));//0
+		System.out.println(solution(intArray7));//5
+		System.out.println(solution(intArray8));//5
+	}
+	
+	public static Integer solution(Integer[] intArray) {
+		Integer result = 0; 
+		Integer hightsOfBlocks = 0; //各ブロックの高さ、つまり、intArray[i]の値；
+		//以下はintArrayのindexを表示してくれるものを作るため、intArrayと同じ長さのInteger型Array；
+		Integer index = 0;
+		Integer[] indexArray = new Integer[intArray.length];
+		for(int i=0; i<intArray.length; i++) {
+			indexArray[i] = i;
+		}
+		//以上はintArrayのindexを表示してくれるものを作るため、intArrayと同じ長さのInteger型Array；
+		Integer indexOfMax1 =indexOfMax(intArray);//indexOfMaxメソードを使って、intArrayの中のmaxのindexをリラーンする；
+		if(indexOfMax1!=0) { //intArray[0]がmaxかどうかを判断する；maxじゃない場合、maxが出てくるまで、右が自分より低い場合は、ずっと右を見ていく；
+			Integer leftBlock = intArray[0];
+			for(int i=1; i<intArray.length; i++) {
+				if(intArray[i] > leftBlock) {
+					result = result + (i-index-1)*leftBlock-hightsOfBlocks;//右が自分より高い場合、つまり、水を貯められるということ、なのでどれだけ貯まるかを算出；
+					index = i;
+					hightsOfBlocks = 0;
+					if(indexOfMax1==i) {
+						break;//ここでmaxが出てきたため、これからの右は全部このmaxより低いため、処理法が変わる；なので、if文を出て、次のwhileループに入る；
+					}else {
+						leftBlock = intArray[i];
+					}
+				}else {
+					hightsOfBlocks = hightsOfBlocks+intArray[i];
+				}
+			}
+		}
+		//ここからは、maxの右側について処理する；
+		while(index<intArray.length-1) {	
+			//まずはこの部分（新しいArrayを作って、currentのmaxの右側を全部これに入れる；目的は、この中から一番高いブロック（次のmax）を探すこと；
+			Integer[] subArray = new Integer[(intArray.length-1) - index];
+			for(int i=index+1; i<intArray.length; i++) {
+				subArray[i-(index+1)] = intArray[i];
+			}
+			//以上で、新しいArrayを作って、currentのmaxの右側を全部それに入れた；
+			Integer indexOfMax2 = indexOfMax(subArray);//この中から一番高いブロック（次のmax）を探しだす；
+			if(indexOfMax2==0) {//maxのindexが０だというのは、前のmaxの次にすぐ次のmaxであること；この場合、この二つのブロックの間に見ず溜まらない；
+				index=index+1;
+			}else {//前のmaxと次のmaxの間に、水が溜まっているので、これを算出する；
+				for(int i=0; i<indexOfMax2; i++) {
+					hightsOfBlocks = hightsOfBlocks+subArray[i];
+				}
+				result = result +indexOfMax2*subArray[indexOfMax2]-hightsOfBlocks;
+				hightsOfBlocks=0;
+				index=index+indexOfMax2+1;
+			}
+		}
+		return result;
+	}
+
+	public static Integer indexOfMax(Integer[] intArray) {
+		Integer max = intArray[0];
+		Integer indexOfMax = 0;
+		for(int i=1; i<intArray.length; i++) {
+			if(intArray[i]>max) {
+				max  =  intArray[i];
+				indexOfMax = i;
+			}
+		}
+		return indexOfMax;
+
+	}
+
+}

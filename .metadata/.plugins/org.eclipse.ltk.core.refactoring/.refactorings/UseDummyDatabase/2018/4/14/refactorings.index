@@ -1,0 +1,5 @@
+1522666651827	Rename local variable 'declineStack'
+1522672510062	Rename local variable 'underwaterList'
+1522674492749	Rename local variable 'sortedHeightList'
+1522840072285	Encapsulate field 'data'
+1522840077197	Encapsulate field 'next'

@@ -1,0 +1,52 @@
+import java.io.*;
+import java.math.*;
+import java.text.*;
+import java.util.*;
+import java.util.regex.*;
+
+public class Solution {
+
+	private class KB {
+		public Double k;
+		public Double b;
+		public count;
+	}
+    /*
+     * Complete the dynamicLineIntersection function below.
+     */
+    static void dynamicLineIntersection(int n) {
+        /*
+         * Write your code here.
+         */
+    	Map<String, KB> lineMap
+    	
+    	for(int i=0; i<n; i++) {
+            String line = scanner.nextLine();
+            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])*");
+            
+            String[] strArr = line.split(" ");
+            
+    		if(strArr[0] == "+"){
+    			Double.parseDouble(strArr[1]);
+    			Double.parseDouble(strArr[2]);
+    		} else if(strArr[0] == "-") {
+    			Double.parseDouble(strArr[1]);
+    			Double.parseDouble(strArr[2]);
+    		} else if(strArr[0] == "?") {
+    			
+    		}
+    	}
+
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        int n = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])*");
+
+        dynamicLineIntersection(n);
+
+        scanner.close();
+    }
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;BLOCK_SIZE&apos; in &apos;com.weijinglab.blockgame.Main&apos; to &apos;BOARD_SIZE&apos;&#x0D;&#x0A;- Original project: &apos;BlockGame&apos;&#x0D;&#x0A;- Original element: &apos;com.weijinglab.blockgame.Main.BLOCK_SIZE&apos;&#x0D;&#x0A;- Renamed element: &apos;com.weijinglab.blockgame.Main.BOARD_SIZE&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;BLOCK_SIZE&apos;" flags="589830" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;com.weijinglab.blockgame{Main.java[Main^BLOCK_SIZE" name="BOARD_SIZE" references="true" setter="false" stamp="1429104525760" textual="false" version="1.0"/>
+</session>

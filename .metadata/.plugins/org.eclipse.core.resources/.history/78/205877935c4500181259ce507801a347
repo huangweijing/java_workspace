@@ -1,0 +1,25 @@
+import java.util.Calendar;
+import java.util.Date;
+
+
+public class MyTest {
+
+	public static void main(String[] args) {
+		int[] a = new int[3];
+		System.out.println(a[0]);
+		int t = 421454151;
+		System.out.println(t % 13);
+		System.out.println(t & 12);
+		
+		long before = System.currentTimeMillis();
+		
+
+		
+		for(long i=0; i<1000000; i++) {
+			t = t % 13;
+		}
+		long after = System.currentTimeMillis();
+		System.out.println((double)(after - before) / 1000);
+	}
+
+}

@@ -1,0 +1,9 @@
+package com.weijinglab.firstupperstr;
+
+public class FirstUppercaseLetter {
+
+	public static void main(String[] args) {
+
+	}
+
+}

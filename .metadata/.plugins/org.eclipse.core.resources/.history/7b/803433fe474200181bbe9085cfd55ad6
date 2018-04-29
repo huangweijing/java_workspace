@@ -1,0 +1,9 @@
+package com.weijinglab.checklinkedlist;
+
+public class CheckIfLinkedListIsSorted {
+
+	public static void main(String[] args) {
+
+	}
+
+}

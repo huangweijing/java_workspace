@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;BinarySearchTree.java&apos; to &apos;WeobotJavaLibrary/src/com.weijinglab.lib.tree&apos;&#x0D;&#x0A;- Original project: &apos;UseDummyDatabase&apos;&#x0D;&#x0A;- Destination element: &apos;WeobotJavaLibrary/src/com.weijinglab.lib.tree&apos;&#x0D;&#x0A;- Original element: &apos;com.weijinglab.binarytree.BinarySearchTree.java&apos;" description="Copy compilation unit" destination="=WeobotJavaLibrary/src&lt;com.weijinglab.lib.tree" element1="/src&lt;com.weijinglab.binarytree{BinarySearchTree.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1524906703917" units="1" version="1.0"/>
+</session>

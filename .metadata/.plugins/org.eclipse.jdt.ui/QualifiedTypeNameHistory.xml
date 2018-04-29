@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.weijinglab.selectiongame.model.Area"/>
+<fullyQualifiedTypeName name="com.weijinglab.selectiongame.model.ActionType"/>
+<fullyQualifiedTypeName name="com.weijinglab.selectiongame.model.Action"/>
+<fullyQualifiedTypeName name="java.net.URL"/>
+<fullyQualifiedTypeName name="java.io.InputStream"/>
+<fullyQualifiedTypeName name="java.io.OutputStream"/>
+<fullyQualifiedTypeName name="com.github.faucamp.simplertmp.DefaultRtmpClient"/>
+<fullyQualifiedTypeName name="com.github.faucamp.simplertmp.output.Mp3Writer"/>
+<fullyQualifiedTypeName name="java.io.FileOutputStream"/>
+<fullyQualifiedTypeName name="homework.WeijingsScore"/>
+<fullyQualifiedTypeName name="java.lang.StringBuilder"/>
+<fullyQualifiedTypeName name="com.weijinglab.firenet.FirenetResult"/>
+<fullyQualifiedTypeName name="com.weijinglab.rainwater.TrappingRainWater.HeightInfo"/>
+<fullyQualifiedTypeName name="java.util.Comparator"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.Collections"/>
+<fullyQualifiedTypeName name="java.lang.Character"/>
+<fullyQualifiedTypeName name="com.weijinglab.mycollections.MyLinkedList.Node"/>
+<fullyQualifiedTypeName name="java.lang.Override"/>
+<fullyQualifiedTypeName name="java.lang.Double"/>
+<fullyQualifiedTypeName name="java.util.Stack"/>
+<fullyQualifiedTypeName name="com.weijinglab.binarytree.BinaryTree.TreeNode"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="com.weijinglab.binarytree.BinaryTree"/>
+<fullyQualifiedTypeName name="java.lang.Comparable"/>
+<fullyQualifiedTypeName name="com.weijinglab.binarytree.BinarySearchTree.TreeNode"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.util.Calendar"/>
+<fullyQualifiedTypeName name="Solution4"/>
+<fullyQualifiedTypeName name="java.util.Scanner"/>
+<fullyQualifiedTypeName name="java.lang.StringBuffer"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="TwoEfficientTeams2"/>
+</qualifiedTypeNameHistroy>

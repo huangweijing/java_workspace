@@ -1,0 +1,18 @@
+import java.util.Calendar;
+import java.util.Date;
+
+
+public class MyTest {
+
+	public static void main(String[] args) {
+		
+		long before = System.currentTimeMillis();
+		
+
+		
+		
+		long after = System.currentTimeMillis();
+		System.out.println((double)(after - before) / 1000);
+	}
+
+}

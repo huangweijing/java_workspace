@@ -1,0 +1,63 @@
+import java.io.*;
+import java.math.*;
+import java.text.*;
+import java.util.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    /*
+     * Complete the maximumProgramValue function below.
+     */
+    static long maximumProgramValue(int n) {
+        /*
+         * Write your code here.
+         */
+//        int[] rating = new int[n];
+
+    	long x = 0l;
+        for (int inputIdx = 0; inputIdx < n; inputIdx++) {
+            String ratingItem = scanner.next();
+            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+            if(ratingItem.startsWith("add")) {
+            	long v = Long.valueOf(ratingItem.replace("add", ""));
+            	x = x + v;
+            } else if(ratingItem.startsWith("set")) {
+            	long v = Long.valueOf(ratingItem.replace("set", ""));
+            	x = v;
+            }
+        }
+        
+        return x;
+
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+//    public static void main(String[] args) throws IOException {
+//        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+//        int n = scanner.nextInt();
+//        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])*");
+//
+//        long result = maximumProgramValue(n);
+//
+//        bufferedWriter.write(String.valueOf(result));
+//        bufferedWriter.newLine();
+//
+//        bufferedWriter.close();
+//
+//        scanner.close();
+//    }
+    
+
+    public static void main(String[] args) {
+        int n = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])*");
+
+        long result = maximumProgramValue(n);
+        System.out.println(result);
+
+        scanner.close();
+    }
+}
+

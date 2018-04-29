@@ -1,0 +1,24 @@
+package com.weijinglab.lib.tree;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+public class VerticalOrderOfBinaryTree {
+
+	
+    public void getVerticalOrder(Node root, Integer pos, Map<Integer, List<Integer>> verticalMap) {
+        if(root == null) {
+            return;
+        }
+        List<Integer> verticalList = verticalMap.get(pos);
+        if(verticalList == null) {
+            verticalList = new ArrayList<Integer>();
+            verticalMap.put(pos, verticalList);
+        }
+        verticalList.add(root.data);
+        
+        getVerticalOrder(root.left, pos - 1, verticalMap);
+        getVerticalOrder(root.right, pos + 1, verticalMap);
+    }
+}

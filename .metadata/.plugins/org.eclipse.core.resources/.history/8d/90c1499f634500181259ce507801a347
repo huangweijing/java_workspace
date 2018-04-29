@@ -1,0 +1,24 @@
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Scanner;
+
+
+public class MyTest {
+
+	public static void main(String[] args) {
+		
+		long before = System.currentTimeMillis();
+		
+
+		
+		
+		long after = System.currentTimeMillis();
+		System.out.println((double)(after - before) / 1000);
+	}
+	
+	public void runS4() {
+		Solution4.scanner = new Scanner("testcase.txt");
+		Solution4.dynamicLineIntersection(100000);
+	}
+
+}

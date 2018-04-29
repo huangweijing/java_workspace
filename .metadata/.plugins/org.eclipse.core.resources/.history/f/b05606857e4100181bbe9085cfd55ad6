@@ -1,0 +1,45 @@
+import java.io.*;
+import java.math.*;
+import java.text.*;
+import java.util.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    // Complete the averageOfTopEmployees function below.
+    static void averageOfTopEmployees(int[] rating) {
+
+    	int totalScore = 0;
+    	int cnt = 0;
+    	for(int r : rating) {
+    		if(r < 90)
+    			continue;
+    		totalScore += r;
+    		cnt++;
+    	}
+    	Double r = Double.valueOf((double)totalScore / cnt);
+    	BigDecimal bd = BigDecimal.valueOf(r);
+    	System.out.println(bd.setScale(3, RoundingMode.HALF_UP));
+//    	System.out.println(bd);
+
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        int n = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        int[] rating = new int[n];
+
+        for (int ratingItr = 0; ratingItr < n; ratingItr++) {
+            int ratingItem = scanner.nextInt();
+            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+            rating[ratingItr] = ratingItem;
+        }
+
+        averageOfTopEmployees(rating);
+
+        scanner.close();
+    }
+}

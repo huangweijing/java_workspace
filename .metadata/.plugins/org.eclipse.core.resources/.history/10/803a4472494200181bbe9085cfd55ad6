@@ -1,0 +1,10 @@
+package com.weijinglab.remove_middle_of_stack;
+
+public class RemoveMiddleOfStack {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

@@ -1,0 +1,69 @@
+import java.io.*;
+import java.math.*;
+import java.text.*;
+import java.util.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    // Complete the maximumSuperiorCharacters function below.
+    static long maximumSuperiorCharacters(int[] freq) {
+    	long result = 0;
+    	Stack<Integer> sta = new Stack<Integer>();
+
+    	for(int n : freq) {
+    		sta.push(n);
+    	}
+    	
+    	while(sta.size() > 1) {
+    		Integer superiorNum = sta.pop();
+    		while(superiorNum > 0 && sta.size() > 0) {
+    			Integer smallerNum = sta.pop();
+    			if(superiorNum >= smallerNum) {
+    				superiorNum = superiorNum - smallerNum;
+    				result += smallerNum;
+    			} else {
+    				smallerNum = smallerNum - superiorNum;
+    				result += superiorNum;
+    				sta.push(smallerNum);
+    				superiorNum = 0;
+    			}
+    		}
+        	if(sta.size() == 0 && superiorNum == 0)
+        		result--;
+    	}
+    	
+    	return result;
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) throws IOException {
+//        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int t = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        for (int tItr = 0; tItr < t; tItr++) {
+            int[] freq = new int[5];
+
+            String[] freqItems = scanner.nextLine().split(" ");
+            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+            for (int freqItr = 0; freqItr < freq.length; freqItr++) {
+                int freqItem = Integer.parseInt(freqItems[freqItr]);
+                freq[freqItr] = freqItem;
+            }
+
+            long result = maximumSuperiorCharacters(freq);
+
+            System.out.println(result);
+//            bufferedWriter.write(String.valueOf(result));
+//            bufferedWriter.newLine();
+        }
+
+//        bufferedWriter.close();
+
+        scanner.close();
+    }
+}

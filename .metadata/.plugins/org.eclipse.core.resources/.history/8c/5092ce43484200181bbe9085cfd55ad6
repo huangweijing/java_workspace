@@ -1,0 +1,22 @@
+package com.weijinglab.checklinkedlist;
+
+import java.util.LinkedList;
+
+public class CheckIfLinkedListIsSorted {
+
+	public static void main(String[] args) {
+
+	}
+
+	public boolean isSorted(LinkedList<Integer> list) {
+		if(list.size() < 2) {
+			return true;
+		}
+		Integer head = list.remove(0);
+		if(head > list.peek() && isSorted(list)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+}

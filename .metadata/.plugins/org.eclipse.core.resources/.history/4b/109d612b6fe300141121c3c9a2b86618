@@ -1,0 +1,5 @@
+package com.weijinglab.blockgame;
+
+public class Point {
+
+}
