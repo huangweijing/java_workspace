@@ -22,13 +22,19 @@ public class DownToZeroII {
 				n--;
 				cnt++;
 			}
+			
+			System.out.println("n:" + n);
 				
 		}
 		return cnt;
 	}
 	
+
 	public static  int getMiddleDivider(int n) {
-		int rootN = (int)Math.sqrt(n);
+		double r = Math.sqrt(n);
+		if((int)r < r) 
+			r = r + 1;
+		int rootN = (int)r;
 		if(rootN==1)
 			rootN = 2;
 		for(int i=rootN; i<=n; i++) {
@@ -40,6 +46,11 @@ public class DownToZeroII {
 
 	private static final Scanner scanner = new Scanner(System.in);
 
+//	public static void main(String[] args) throws IOException {
+//		System.out.println(getMiddleDivider(15));
+//	}
+	
+	
 	public static void main(String[] args) throws IOException {
 //		BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
