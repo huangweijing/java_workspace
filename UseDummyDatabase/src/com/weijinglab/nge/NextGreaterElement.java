@@ -9,9 +9,9 @@ public class NextGreaterElement {
 
     public static void main(String args[])
     {
-    	int t=100;
+    	int t=15;
     	while(--t > 0)
-	    	for(int i=100; i<=102400000; i=i*2) {
+	    	for(int i=1000; i<=100000000; i=(int)(i * 1.1)) {
 	    		measure(i);	
 	    	}
     	
@@ -63,13 +63,52 @@ public class NextGreaterElement {
         }
     }
     
+    static class stack 
+    {
+        int top;
+        int items[] = new int[200000000];
+ 
+        // Stack functions to be used by printNGE
+        void push(int x) 
+        {
+            if (top == 999999999) 
+            {
+                System.out.println("Stack full");
+            } 
+            else
+            {
+                items[++top] = x;
+            }
+        }
+ 
+        int pop() 
+        {
+            if (top == -1) 
+            {
+                System.out.println("Underflow error");
+                return -1;
+            } 
+            else
+            {
+                int element = items[top];
+                top--;
+                return element;
+            }
+        }
+ 
+        boolean isEmpty() 
+        {
+            return (top == -1) ? true : false;
+        }
+    }
+    
     /* prints element and NGE pair for 
     all elements of arr[] of size n */
  static void printNGE2(Integer arr[], int n) 
  {
      int i = 0;
-     Stack<Integer> s = new Stack<>();
-//     s.top = -1;
+     stack s = new stack();
+     s.top = -1;
      int element, next;
 
      /* push the first element to stack */
