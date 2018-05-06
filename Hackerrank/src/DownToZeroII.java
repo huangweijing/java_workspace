@@ -6,42 +6,53 @@ import java.util.regex.*;
 
 public class DownToZeroII {
 
+	private static Map<Integer, Integer> downToZeroResult = new HashMap<Integer, Integer>();
+	private static Map<Integer, Double> sqrtN = new HashMap<Integer, Double>();
 	/*
 	 * Complete the downToZero function below.
 	 */
 	public static int downToZero(int n) {
-		int cnt = 0;
-		while(n > 0) {
-			int divider = getMiddleDivider(n);
-//			System.out.println("divider=" + divider);
-			
-			if(divider < n) {
-				n = divider;
-				cnt++;
-			} else {
-				n--;
-				cnt++;
-			}
-			
-			System.out.println("n:" + n);
-				
+		if(n<=3)
+			return n;
+		if(downToZeroResult.containsKey(n)) {
+			System.out.println("hit:" + n);
+			return downToZeroResult.get(n);
 		}
-		return cnt;
+		List<Integer> dividerList = getBiggerDividerList(n);
+		System.out.println(dividerList);
+		dividerList.add(n-1);
+		int minDownToZeroCount = n;
+		for(Integer divider : dividerList) {
+			int distance = downToZero(divider);
+			if(distance < minDownToZeroCount) {
+				minDownToZeroCount = distance;
+			}
+		}
+//		if(n == minDownToZeroCount) {
+//			minDownToZeroCount = downToZero(n - 1);
+//		}
+		
+		downToZeroResult.put(n, minDownToZeroCount + 1);
+		return minDownToZeroCount + 1;
 	}
-	
 
-	public static  int getMiddleDivider(int n) {
-		double r = Math.sqrt(n);
-		if((int)r < r) 
+	public static List<Integer> getBiggerDividerList(int n) {
+		Double r = sqrtN.get(n);
+		if(r == null) {
+			r = Math.sqrt(n);
+			sqrtN.put(n, r);
+		}
+		if((int)r.doubleValue() < r) 
 			r = r + 1;
-		int rootN = (int)r;
+		int rootN = (int)r.doubleValue();
 		if(rootN==1)
 			rootN = 2;
-		for(int i=rootN; i<=n; i++) {
+		List<Integer> resultList = new ArrayList<Integer>();
+		for(int i=rootN; i<=n-1; i++) {
 			if(n%i==0)
-				return i;
+				resultList.add(i);
 		}
-		return n;
+		return resultList;
 	}
 
 	private static final Scanner scanner = new Scanner(System.in);
@@ -50,8 +61,20 @@ public class DownToZeroII {
 //		System.out.println(getMiddleDivider(15));
 //	}
 	
+	public static void main(String[] args) {
+		System.out.println(downToZero(30));
+//		System.out.println(downToZero(30));
+//    	for(int i=0; i<10000; i++) {
+//    		System.out.println(downToZero(i));
+//    		
+//    	}
+//    	System.out.println(downToZero((int)(Math.random() * 100000)));
+//    		System.out.println(downToZero(i));
+    	
+	}
 	
-	public static void main(String[] args) throws IOException {
+	
+	public static void main2(String[] args) throws IOException {
 //		BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
 		int q = Integer.parseInt(scanner.nextLine().trim());

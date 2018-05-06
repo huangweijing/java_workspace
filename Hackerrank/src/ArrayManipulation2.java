@@ -27,6 +27,6 @@ public class ArrayManipulation2 {
         	if(current > result)
         		result = current;
         }
-        System.out.println(result);
+//        System.out.println(result);
     }
 }

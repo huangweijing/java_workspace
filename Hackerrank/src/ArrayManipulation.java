@@ -117,7 +117,7 @@ public class ArrayManipulation {
 
         int[][] queries = new int[m][3];
 
-        System.out.println("loading data...");
+//        System.out.println("loading data...");
         
         for (int queriesRowItr = 0; queriesRowItr < m; queriesRowItr++) {
 //            String[] queriesRowItems = scanner.nextLine().split(" ");
@@ -128,7 +128,7 @@ public class ArrayManipulation {
                 queries[queriesRowItr][queriesColumnItr] = queriesItem;
             }
         }
-        System.out.println("loading completed...");
+//        System.out.println("loading completed...");
 
         long result = arrayManipulation(n, queries);
 //        System.out.println(result);
