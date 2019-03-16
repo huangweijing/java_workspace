@@ -16,4 +16,8 @@ public class Edge implements Comparable<Edge>{
 	public int compareTo(Edge o) {
 		return this.weight - o.weight;
 	}
+	
+	public String toString() {
+		return "[Edge][from=" + from + ", to=" + to + ", weight=" + weight + "]";  
+	}
 }

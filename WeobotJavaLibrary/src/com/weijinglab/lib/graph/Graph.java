@@ -79,6 +79,56 @@ public class Graph {
 		}
 	}
 	
+
+	public void dfs(int from, boolean[] visited) {
+		Stack<Integer> nodeStack = new Stack<Integer>();
+		nodeStack.add(from);
+		visited[from] = true;
+		
+		while(!nodeStack.isEmpty()) {
+			Integer node = nodeStack.pop();
+			List<Edge>adjacentEdgeList = this.edges.get(node);
+			for(Edge adjacentEdge : adjacentEdgeList) {
+				if(!visited[adjacentEdge.to]) {
+					nodeStack.add(adjacentEdge.to);
+					visited[adjacentEdge.to] = true;
+				}
+			}
+		}
+	}
+	
+	
+	public int countIsland() {
+		int count = 0;
+		boolean[] visited = new boolean[this.v];
+		for(int i=0; i<visited.length; i++) {
+			if(!visited[i]) {
+				this.dfs(i, visited);
+				count++;
+			}
+		}
+		return count;
+	}
+
+	public int[] init(int size) {
+		int[] rootArr = new int[size];
+		for(int i=0; i<size; i++) rootArr[i] = i;
+		return rootArr;
+	}
+	
+	private void union(int src, int dest, int[] rootArr) {
+		int n1 = getRoot(src, rootArr);
+		int n2 = getRoot(dest, rootArr);
+		rootArr[n1] = n2;
+	}
+	
+	private int getRoot(int src, int[]rootArr) {
+		while(src != rootArr[src]) {
+			src = rootArr[src];
+		}
+		return src;
+	}
+	
 	public Graph getKruscalMST() {
 		Graph g = new Graph(this.v);
 		
@@ -96,7 +146,6 @@ public class Graph {
 				System.out.println(Arrays.toString(rootArr));
 			}
 		}
-		
 		return g;
 	}
 	
@@ -163,51 +212,75 @@ public class Graph {
 			
 			List<Edge> list = this.edges.get(e.vertex);
 			for(Edge adjEdge : list) {
-				if(distance[adjEdge.from] + adjEdge.weight < distance[adjEdge.to]) {
+				if((long)distance[adjEdge.from] + adjEdge.weight < distance[adjEdge.to]) {
 					distance[adjEdge.to] = distance[adjEdge.from] + adjEdge.weight;
 					q.add(new Distance(adjEdge.to, distance[adjEdge.to]));
+					//System.out.println(Arrays.toString(distance));
 				}	
 			}
 		}
 		
 		return distance;
 	}
-    static String timeConversion(String s) {
-        /*
-         * Write your code here.
-         */
-		Integer hour = Integer.valueOf(s.substring(0, 2));
-//		Integer minute = Integer.valueOf(s.substring(6, 8));
-    	if(s.endsWith("PM")) {
-    		if(hour == 12)
-    			return s.substring(0, 8);
-    		else
-    			return (hour + 12) + s.substring(2, 8);
-    	} else {
-    		if(hour == 12)
-    			return "00" + s.substring(2, 8);
-    		else
-    			return s.substring(0, 8);
-    	}
-    }
-    
-	public int[] init(int size) {
-		int[] rootArr = new int[size];
-		for(int i=0; i<size; i++) rootArr[i] = i;
-		return rootArr;
-	}
 	
-	private void union(int src, int dest, int[] rootArr) {
-		int n1 = getRoot(src, rootArr);
-		int n2 = getRoot(dest, rootArr);
-		rootArr[n1] = n2;
-	}
-	
-	private int getRoot(int src, int[]rootArr) {
-		while(src != rootArr[src]) {
-			src = rootArr[src];
+	public int[] getBellmanFordSP(int source) {
+		int[] distance = new int[this.v];
+		Arrays.fill(distance, Integer.MAX_VALUE);
+		distance[source] = 0;
+
+		int count = this.v - 1;
+		while(count-- > 0) {
+			for(List<Edge> edgeList : this.edges) {
+				for(Edge edge : edgeList) {
+					if((long)distance[edge.from] + edge.weight < distance[edge.to]) {
+						distance[edge.to] = distance[edge.from] + edge.weight;
+						//System.out.println(Arrays.toString(distance));
+					}
+				}
+			}
 		}
-		return src;
+		
+		return distance;
+	}
+	
+	
+
+	public List<List<Integer>> getBellmanFordSP_SolutionPath(int source) {
+		List<List<Integer>> pathList = new ArrayList<List<Integer>>();
+		for(int i=0; i<this.v; i++) {
+			pathList.add(new ArrayList<Integer>());
+		}
+		pathList.get(source).add(source);
+		
+		int[] distance = new int[this.v];
+		Arrays.fill(distance, Integer.MAX_VALUE);
+		distance[source] = 0;
+
+		int count = this.v - 1;
+		while(count-- > 0) {
+			for(List<Edge> edgeList : this.edges) {
+				for(Edge edge : edgeList) {
+					if((long)distance[edge.from] + edge.weight < distance[edge.to]) {
+						distance[edge.to] = distance[edge.from] + edge.weight;
+						
+						pathList.get(edge.to).clear();
+						pathList.get(edge.to).addAll(pathList.get(edge.from));
+						pathList.get(edge.to).add(edge.to);
+//						System.out.println(Arrays.toString(distance));
+					}
+				}
+			}
+		}
+		
+		return pathList;
+	}
+	
+	public void printEdges() {
+		for(List<Edge> list : this.edges) {
+			for(Edge edge : list) {
+				System.out.println(edge);
+			}
+		}
 	}
 	
 	public static void main(String[] args) {
@@ -266,8 +339,15 @@ public class Graph {
 		System.out.println(mstLength);
 		
 		
-		int[] dijkstraSP = g.getDijkstraSP(0);
+		int source = 10;
+		
+		int[] dijkstraSP = g.getDijkstraSP(source);
 		System.out.println(Arrays.toString(dijkstraSP));
+		
+		System.out.println("==========");
+		
+		int[] bellmanFordSP = g.getBellmanFordSP(source);
+		System.out.println(Arrays.toString(bellmanFordSP));
 	}
 
 }
